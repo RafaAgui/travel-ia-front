@@ -1,0 +1,16 @@
+<p>travels works!</p>
+
+<form (submit)="enviarFormulario($event)">
+  <input [value]="lugar()" (input)="lugar.set($any($event.target).value)" placeholder="Lugar" required />
+  <input [value]="transporte()" (input)="transporte.set($any($event.target).value)" placeholder="Transporte" required />
+  <input type="number" [value]="dias()" (input)="dias.set(+($any($event.target).value) || 0)" placeholder="Días" required />
+  <button type="submit">Generar Plan</button>
+</form>
+
+<div>
+  <h3>Resultado del viaje</h3>
+  <div class="markdown-result" [innerHTML]="respuestaHtml()"></div>
+</div>
+
+
+
