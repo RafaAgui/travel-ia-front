@@ -11,10 +11,24 @@
   <button class="travel-form__submit" type="submit">Generar Plan</button>
 </form>
 
-<div>
+@if (respuestaHtml()) {
   <h2 class="travel-form__subtitle">Resultado del viaje</h2>
+
+  @if (travelId()) {
+    <div class="travel-form__actions">
+      <button type="button" (click)="copyShareLink()" class="travel-form__share-btn">
+        📋 Copiar enlace compartible
+      </button>
+      <button type="button" (click)="navigateToPlan()" class="travel-form__view-btn">
+        🔗 Ver en página dedicada
+      </button>
+      @if (shareMessage()) {
+        <div class="travel-form__share-message">
+          {{ shareMessage() }}
+        </div>
+      }
+    </div>
+  }
+
   <div class="travel-form__text" [innerHTML]="respuestaHtml()"></div>
-</div>
-
-
-
+}

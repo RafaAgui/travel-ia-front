@@ -1,0 +1,51 @@
+<div class="plan-detail">
+  <!-- Loading State -->
+  @if (loading()) {
+    <div class="loading">
+      <p>Cargando plan de viaje...</p>
+    </div>
+  }
+
+  <!-- Error State -->
+  @if (error() && !loading()) {
+    <div class="error">
+      <p>{{ error() }}</p>
+      <button (click)="goBack()" class="btn-back">Volver</button>
+    </div>
+  }
+
+  <!-- Plan Content -->
+  @if (plan() && !loading() && !error()) {
+    <div class="plan-content">
+      <header class="plan-header">
+        <button (click)="goBack()" class="btn-back">← Volver</button>
+        <h1>Plan de Viaje</h1>
+        <button (click)="copyToClipboard()" class="btn-share">📋 Copiar enlace</button>
+      </header>
+
+      <!-- Input Summary -->
+      @if (plan()?.input) {
+        <div class="input-summary">
+          <h2>Detalles de tu búsqueda</h2>
+          <div class="input-grid">
+            <div class="input-item">
+              <span class="label">📍 Lugar:</span>
+              <span class="value">{{ plan()?.input?.lugar }}</span>
+            </div>
+            <div class="input-item">
+              <span class="label">🚗 Transporte:</span>
+              <span class="value">{{ plan()?.input?.transporte }}</span>
+            </div>
+            <div class="input-item">
+              <span class="label">📅 Duración:</span>
+              <span class="value">{{ plan()?.input?.dias }}</span>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Markdown Content -->
+      <div class="markdown-content" [innerHTML]="sanitizedContent()"></div>
+    </div>
+  }
+</div>

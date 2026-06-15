@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marked } from 'marked';
+import { Router } from '@angular/router';
 import { TravelsRsponseService } from '../services/travels-response.service'; // import del servicio (usa el nombre exacto que está en el archivo)
 
 @Component({
@@ -19,6 +20,10 @@ export class Travels {
     // Signal para la respuesta
   respuesta = signal('');
   respuestaHtml = signal<SafeHtml | string>('');
+  travelId = signal<string | null>(null);
+  shareMessage = signal<string | null>(null);
+
+  #router = inject(Router);
 
   constructor(
     private travelsRsponseService: TravelsRsponseService,
@@ -49,13 +54,16 @@ export class Travels {
         next: (res) => {
           console.log('Respuesta API', res);
 
-          const travelId = res.id;
-          if (!travelId) {
+          const idRecibido = res.id;
+          if (!idRecibido) {
             console.error('No se recibió travelId en la respuesta.');
             return;
           }
 
-          this.travelsRsponseService.getActivities$(travelId)
+          this.travelId.set(idRecibido);
+          this.shareMessage.set(null);
+
+          this.travelsRsponseService.getActivities$(idRecibido)
             .subscribe({
               next: (post) => {
                 const rawText = post.post ?? '';
@@ -71,5 +79,29 @@ export class Travels {
         },
         error: (err) => console.error('Error API', err)
       });
+  }
+
+  copyShareLink() {
+    const id = this.travelId();
+    if (!id) {
+      this.shareMessage.set('Error: No hay plan para compartir');
+      return;
+    }
+
+    const shareUrl = `${window.location.origin}/plan-viaje/${id}`;
+    navigator.clipboard.writeText(shareUrl).then(() => {
+      this.shareMessage.set('✓ Enlace copiado al portapapeles');
+      setTimeout(() => this.shareMessage.set(null), 3000);
+    }).catch((err) => {
+      console.error('Error al copiar:', err);
+      this.shareMessage.set('Error al copiar el enlace');
+    });
+  }
+
+  navigateToPlan() {
+    const id = this.travelId();
+    if (id) {
+      this.#router.navigate(['/plan-viaje', id]);
+    }
   }
 }
