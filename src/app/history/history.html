@@ -1,0 +1,60 @@
+<section class="history">
+  <button class="history__toggle" (click)="togglePanel()" [attr.aria-expanded]="isOpen()">
+    <span class="history__toggle-icon">🗂️</span>
+    <span>Respuestas anteriores</span>
+    <span class="history__toggle-arrow" [class.history__toggle-arrow--open]="isOpen()">▼</span>
+  </button>
+
+  @if (isOpen()) {
+    <div class="history__panel">
+
+      @if (!selectedTravel()) {
+        <!-- LISTA DE VIAJES -->
+        @if (loading()) {
+          <p class="history__status">Cargando historial...</p>
+        } @else if (error()) {
+          <div class="history__error">
+            <p>No se pudo cargar el historial.</p>
+            <button class="history__retry-btn" (click)="loadHistory()">Reintentar</button>
+          </div>
+        } @else if (travels().length === 0) {
+          <p class="history__status">No hay respuestas guardadas todavía.</p>
+        } @else {
+          <ul class="history__list">
+            @for (travel of travels(); track travel.id) {
+              <li class="history__item" (click)="selectTravel(travel)">
+                <div class="history__item-header">
+                  <span class="history__item-id">#{{ travel.id }}</span>
+                  <span class="history__item-place">📍 {{ travel.input.lugar }}</span>
+                </div>
+                <div class="history__item-meta">
+                  <span>🚗 {{ travel.input.transporte }}</span>
+                  <span>📅 {{ travel.input.dias }}</span>
+                </div>
+              </li>
+            }
+          </ul>
+        }
+      } @else {
+        <!-- DETALLE DEL VIAJE SELECCIONADO -->
+        <div class="history__detail">
+          <button class="history__back-btn" (click)="clearSelection()">
+            ← Volver al historial
+          </button>
+          <div class="history__detail-meta">
+            <span class="history__item-id">#{{ selectedTravel()!.id }}</span>
+            <span>📍 {{ selectedTravel()!.input.lugar }}</span>
+            <span>🚗 {{ selectedTravel()!.input.transporte }}</span>
+            <span>📅 {{ selectedTravel()!.input.dias }} días</span>
+          </div>
+          @if (selectedTravel()!.post) {
+            <div class="travel-form__text" [innerHTML]="selectedHtml()"></div>
+          } @else {
+            <p class="history__status">Este plan no tiene contenido generado todavía.</p>
+          }
+        </div>
+      }
+
+    </div>
+  }
+</section>

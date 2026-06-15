@@ -21,6 +21,78 @@
   }
 }
 
+.travel-form__actions {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+
+.travel-form__share-btn,
+.travel-form__view-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 1.5rem;
+  border: 1px solid black;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+
+  &:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.travel-form__share-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+
+  &:hover {
+    background: linear-gradient(135deg, #5568d3 0%, #65398b 100%);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  }
+}
+
+.travel-form__view-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  border: none;
+
+  &:hover {
+    background: linear-gradient(135deg, #e07cea 0%, #e4465d 100%);
+    box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
+  }
+}
+
+.travel-form__share-message {
+  padding: 0.75rem 1rem;
+  background: #e8f5e9;
+  color: #2e7d32;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  border-left: 4px solid #2e7d32;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .travel-form__text {
   padding: 1rem;
   border: 1px solid #ddd;
@@ -57,4 +129,3 @@
     overflow-x: auto;
   }
 }
-
