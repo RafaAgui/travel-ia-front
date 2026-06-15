@@ -1,40 +1,60 @@
-.markdown-result {
+.travel-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 3rem;
+
+  &__label{
+    font-weight: 700;
+  }
+
+  &__input{
+    padding: 1rem 1.5rem;
+    border-radius: 1.5rem;
+    border: 1px solid black;
+  }
+
+  &__submit {
+    padding: 1rem 1.5rem;
+    border-radius: 1.5rem;
+    border: 1px solid black;
+  }
+}
+
+.travel-form__text {
   padding: 1rem;
   border: 1px solid #ddd;
   border-radius: 0.5rem;
   background: #fff;
   line-height: 1.6;
   color: #242424;
+
+  & h1,
+  & h2,
+  & h3,
+  & h4 {
+    margin-top: 1.2rem;
+    margin-bottom: 0.6rem;
+  }
+  & p {
+    margin: 0.75rem 0;
+  }
+  & ul,
+  & ol {
+    padding-left: 1.25rem;
+    margin: 0.75rem 0;
+  }
+  & code {
+    background: #f4f4f4;
+    padding: 0.15rem 0.35rem;
+    border-radius: 0.3rem;
+  }
+  & pre {
+    background: #141414;
+    color: #f5f5f5;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+  }
 }
 
-.markdown-result h1,
-.markdown-result h2,
-.markdown-result h3,
-.markdown-result h4 {
-  margin-top: 1.2rem;
-  margin-bottom: 0.6rem;
-}
-
-.markdown-result p {
-  margin: 0.75rem 0;
-}
-
-.markdown-result ul,
-.markdown-result ol {
-  padding-left: 1.25rem;
-  margin: 0.75rem 0;
-}
-
-.markdown-result code {
-  background: #f4f4f4;
-  padding: 0.15rem 0.35rem;
-  border-radius: 0.3rem;
-}
-
-.markdown-result pre {
-  background: #141414;
-  color: #f5f5f5;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  overflow-x: auto;
-}

@@ -1,15 +1,19 @@
-<p>travels works!</p>
+<form (submit)="enviarFormulario($event)" class="travel-form">
+  <label class="travel-form__label" for="place">¿Dónde quieres viajar?</label>
+  <input class="travel-form__input" [value]="lugar()" (input)="lugar.set($any($event.target).value)" placeholder="Lugar" required id="place"/>
 
-<form (submit)="enviarFormulario($event)">
-  <input [value]="lugar()" (input)="lugar.set($any($event.target).value)" placeholder="Lugar" required />
-  <input [value]="transporte()" (input)="transporte.set($any($event.target).value)" placeholder="Transporte" required />
-  <input type="number" [value]="dias()" (input)="dias.set(+($any($event.target).value) || 0)" placeholder="Días" required />
-  <button type="submit">Generar Plan</button>
+  <label class="travel-form__label" for="transport">¿Cómo te vas a mover? Coche / transporte público / caminando...</label>
+  <input class="travel-form__input" [value]="transporte()" (input)="transporte.set($any($event.target).value)" placeholder="Transporte" required id="transport"/>
+
+  <label class="travel-form__label" for="time">¿Cuántos días vas?</label>
+  <input class="travel-form__input" type="number" [value]="dias()" (input)="dias.set(+($any($event.target).value) || 0)" placeholder="Días" required id="time"/>
+
+  <button class="travel-form__submit" type="submit">Generar Plan</button>
 </form>
 
 <div>
-  <h3>Resultado del viaje</h3>
-  <div class="markdown-result" [innerHTML]="respuestaHtml()"></div>
+  <h2 class="travel-form__subtitle">Resultado del viaje</h2>
+  <div class="travel-form__text" [innerHTML]="respuestaHtml()"></div>
 </div>
 
 
